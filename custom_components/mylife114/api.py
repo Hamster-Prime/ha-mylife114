@@ -77,8 +77,8 @@ class Mylife114Api:
         controller_sn: str,
         house_id: int | str,
         direction: int = DEFAULT_DIRECTION,
-    ) -> Any:
-        return await self._get(
+    ) -> dict[str, Any]:
+        data = await self._get(
             API_OPEN_DOOR,
             {
                 "controller_sn": controller_sn,
@@ -87,6 +87,34 @@ class Mylife114Api:
                 "house_id": str(house_id),
             },
         )
+        if not _is_success(data):
+            msg = _extract_msg(data) or "未知错误"
+            raise Mylife114ApiError(f"开门失败: {msg}")
+        _LOGGER.info(
+            "Door %s opened successfully: %s",
+            controller_sn,
+            _extract_msg(data) or "",
+        )
+        return data if isinstance(data, dict) else {}
+
+
+def _is_success(payload: Any) -> bool:
+    # Observed success: {"ref": 0, "msg": "开门成功"}
+    # Treat ref==0 OR msg containing 成功 as success; everything else as failure.
+    if not isinstance(payload, dict):
+        return False
+    if payload.get("ref") == 0:
+        return True
+    msg = payload.get("msg")
+    return isinstance(msg, str) and "成功" in msg
+
+
+def _extract_msg(payload: Any) -> str | None:
+    if isinstance(payload, dict):
+        msg = payload.get("msg")
+        if isinstance(msg, str) and msg:
+            return msg
+    return None
 
 
 def _extract_list(payload: Any) -> list[dict[str, Any]]:

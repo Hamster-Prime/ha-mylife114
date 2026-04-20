@@ -87,10 +87,24 @@ class DoorButton(CoordinatorEntity[Mylife114Coordinator], ButtonEntity):
         }
 
     async def async_press(self) -> None:
+        event_data = {
+            "controller_sn": self._controller_sn,
+            "house_id": self._house_id,
+            "door_name": self._attr_name,
+            "community_name": self._attr_extra_state_attributes.get("community_name", ""),
+        }
         try:
-            await self.coordinator.api.open_door(
+            result = await self.coordinator.api.open_door(
                 self._controller_sn, self._house_id, self._direction
             )
         except Mylife114ApiError as err:
             _LOGGER.error("Open door %s failed: %s", self._controller_sn, err)
+            self.hass.bus.async_fire(
+                f"{DOMAIN}_door_event",
+                {**event_data, "result": "failed", "msg": str(err)},
+            )
             raise
+        self.hass.bus.async_fire(
+            f"{DOMAIN}_door_event",
+            {**event_data, "result": "success", "msg": result.get("msg", "")},
+        )
