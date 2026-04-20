@@ -5,6 +5,10 @@ import logging
 from typing import Any
 
 from homeassistant.components.button import ButtonEntity
+from homeassistant.components.persistent_notification import (
+    async_create as async_create_notification,
+    async_dismiss as async_dismiss_notification,
+)
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.device_registry import DeviceInfo
@@ -93,6 +97,9 @@ class DoorButton(CoordinatorEntity[Mylife114Coordinator], ButtonEntity):
             "door_name": self._attr_name,
             "community_name": self._attr_extra_state_attributes.get("community_name", ""),
         }
+        notification_id = f"{DOMAIN}_{self._controller_sn}"
+        # Clear any stale failure notification from a previous attempt.
+        async_dismiss_notification(self.hass, notification_id)
         try:
             result = await self.coordinator.api.open_door(
                 self._controller_sn, self._house_id, self._direction
@@ -102,6 +109,12 @@ class DoorButton(CoordinatorEntity[Mylife114Coordinator], ButtonEntity):
             self.hass.bus.async_fire(
                 f"{DOMAIN}_door_event",
                 {**event_data, "result": "failed", "msg": str(err)},
+            )
+            async_create_notification(
+                self.hass,
+                f"**{self._attr_name}** 开门失败\n\n{err}",
+                title="🚪 Mylife114 门禁",
+                notification_id=notification_id,
             )
             raise
         self.hass.bus.async_fire(

@@ -3,6 +3,13 @@
 所有重要变更都会记录在这里。
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/),遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.0.3] - 2026-04-21
+
+### Added
+
+- 开门失败时自动创建 HA 持久通知(右上角铃铛会亮红点),标题 "🚪 Mylife114 门禁",正文含门名和具体原因(来自服务端 `msg` 字段)
+- 同一扇门再次按成功后,旧失败通知会被自动清除,不会堆积
+
 ## [1.0.2] - 2026-04-21
 
 ### Added
