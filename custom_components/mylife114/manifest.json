@@ -1,13 +1,13 @@
 {
   "domain": "mylife114",
   "name": "Mylife114 社区门禁",
-  "version": "1.0.0",
-  "documentation": "https://github.com/Hamster-Prime/ha-mylife114",
-  "issue_tracker": "https://github.com/Hamster-Prime/ha-mylife114/issues",
   "codeowners": ["@Hamster-Prime"],
-  "dependencies": [],
-  "requirements": [],
   "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/Hamster-Prime/ha-mylife114",
+  "integration_type": "hub",
   "iot_class": "cloud_polling",
-  "integration_type": "hub"
+  "issue_tracker": "https://github.com/Hamster-Prime/ha-mylife114/issues",
+  "requirements": [],
+  "version": "1.0.1"
 }
