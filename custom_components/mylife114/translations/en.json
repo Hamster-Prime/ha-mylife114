@@ -1,0 +1,27 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mylife114 Community Access",
+        "description": "Enter the UID captured from a WeChat open-door request (e.g. {known_uid}).",
+        "data": {
+          "uid": "User UID",
+          "name": "Integration name",
+          "user_agent": "User-Agent (keep default unless needed)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to reach the server. Check the UID and network."
+    },
+    "abort": {
+      "already_configured": "This UID is already configured."
+    }
+  },
+  "services": {
+    "open_door": {
+      "name": "Open door",
+      "description": "Call the open_door API directly."
+    }
+  }
+}

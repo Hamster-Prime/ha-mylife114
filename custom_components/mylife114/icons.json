@@ -1,0 +1,7 @@
+{
+  "services": {
+    "open_door": {
+      "service": "mdi:door-open"
+    }
+  }
+}

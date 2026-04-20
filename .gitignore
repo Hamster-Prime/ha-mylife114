@@ -1,0 +1,68 @@
+# ⚠️ 敏感个人信息 —— 抓包原始文件绝对不要 push
+config.txt
+*.har
+*.pcap
+*.pcapng
+captures/
+raw/
+secrets.yaml
+.secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境
+venv/
+env/
+.venv/
+.env
+ENV/
+
+# 测试 / 类型检查缓存
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# IDE / 编辑器
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-*
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Home Assistant 运行时产物(万一你在本仓库里跑过 HA)
+.HA_VERSION
+home-assistant.log*
+home-assistant_v2.db*
+.storage/
+.cloud/
+deps/
+tts/

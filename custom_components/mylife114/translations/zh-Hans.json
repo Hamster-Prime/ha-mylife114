@@ -1,0 +1,27 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "配置 Mylife114 社区门禁",
+        "description": "输入从微信开门请求中抓到的 UID(例如 {known_uid})。",
+        "data": {
+          "uid": "用户 UID",
+          "name": "集成名称",
+          "user_agent": "User-Agent(默认即可)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接到服务器,请检查 UID 和网络。"
+    },
+    "abort": {
+      "already_configured": "该 UID 已配置。"
+    }
+  },
+  "services": {
+    "open_door": {
+      "name": "开门",
+      "description": "直接调用 open_door 接口开门。"
+    }
+  }
+}

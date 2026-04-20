@@ -1,0 +1,36 @@
+open_door:
+  name: 开门
+  description: 直接调用 Mylife114 open_door 接口开门
+  fields:
+    controller_sn:
+      name: 控制器序列号
+      description: 门禁控制器 SN (controller_sn),如 D74838090
+      required: true
+      example: "D74838090"
+      selector:
+        text:
+    house_id:
+      name: 房屋 ID
+      description: house_id 参数,如 898320
+      required: true
+      example: "898320"
+      selector:
+        text:
+    direction:
+      name: 开门方向
+      description: direction 参数 (默认 1)
+      required: false
+      default: 1
+      example: 1
+      selector:
+        number:
+          min: 0
+          max: 9
+          mode: box
+    uid:
+      name: 用户 UID (可选)
+      description: 覆盖当前配置的 UID,用一次性 UID 开门
+      required: false
+      example: "127149"
+      selector:
+        text:
